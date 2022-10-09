@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import SearchBar from '../uicomponents/SearchBar';
 import useBusinesses from '../hooks/useBusinesses';
 import BusinessesHorizontalList from '../uicomponents/BusinessesHorizontalList';
@@ -15,19 +15,18 @@ const SearchScreen = () => {
         });
     }
     return(
-        <View>
+        <View style = {{flex: 1}}>
             <SearchBar 
                 textSearch={textSearch} 
                 onTextSearchChange={newText => setTextSearch(newText)}
                 onTextSearchSubmitted={text => searchApi(text)}
             />
-            <Text>
-                Search Screen
-            </Text>
-            <Text>We have found {businesses.length} results</Text>
-            <BusinessesHorizontalList businesses = {filterByPrice(1,1)} title="Cost Effective" />
-            <BusinessesHorizontalList businesses = {filterByPrice(2,2)} title="Bit Pricer" />
-            <BusinessesHorizontalList businesses = {filterByPrice(3,100)} title="Big Spender" />
+            <Text style = { { marginLeft: 15 }} >We have found {businesses.length} results</Text>
+            <ScrollView>
+                <BusinessesHorizontalList businesses = {filterByPrice(1,1)} title="Cost Effective" />
+                <BusinessesHorizontalList businesses = {filterByPrice(2,2)} title="Bit Pricer" />
+                <BusinessesHorizontalList businesses = {filterByPrice(3,100)} title="Big Spender" />
+            </ScrollView>
         </View>
     )
 }

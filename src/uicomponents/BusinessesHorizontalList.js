@@ -1,21 +1,34 @@
 import React from "react";
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
+import BusinessCell from '../uicomponents/BusinessCell'
 
 const BusinessesHorizontalList = ({ businesses, title }) => {
     return (
-        <View>
+        <View style = {styles.conatiner}>
             <Text style={styles.title}>
                 {title}
             </Text>
-            <Text> Results: {businesses.length} </Text>
+            <FlatList 
+                horizontal
+                showsHorizontalScrollIndicator = { false }
+                data={ businesses }
+                renderItem={({ item }) => {
+                    return <BusinessCell business = {item} />;
+                }}
+            />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    conatiner: {
+        marginBottom: 10,
+    },
     title: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginLeft: 15,
+        marginBottom: 5
     }
 });
 
