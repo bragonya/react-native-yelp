@@ -1,8 +1,10 @@
-import React from "react";
+import React, {memo} from "react";
 import {View, Text, StyleSheet, FlatList} from 'react-native';
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { withNavigation } from "react-navigation";
 import BusinessCell from '../uicomponents/BusinessCell'
 
-const BusinessesHorizontalList = ({ businesses, title }) => {
+const BusinessesHorizontalList = ({ businesses, title, navigation }) => {
     return (
         <View style = {styles.conatiner}>
             <Text style={styles.title}>
@@ -12,8 +14,11 @@ const BusinessesHorizontalList = ({ businesses, title }) => {
                 horizontal
                 showsHorizontalScrollIndicator = { false }
                 data={ businesses }
+                keyExtractor = { ( item ) => { return item.id } }
                 renderItem={({ item }) => {
-                    return <BusinessCell business = {item} />;
+                    return <TouchableOpacity onPress={ () => { navigation.navigate('BusinessDetail', { id: item.id }) } }>
+                        <BusinessCell business = {item} />
+                    </TouchableOpacity>
                 }}
             />
         </View>
@@ -32,4 +37,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default BusinessesHorizontalList;
+export default memo(withNavigation(BusinessesHorizontalList));
